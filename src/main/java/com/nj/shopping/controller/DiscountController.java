@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nj.shopping.Repository.DiscountSlabRepository;
-import com.nj.shopping.domain.DiscountSlabs;
+import com.nj.shopping.domain.DiscountSlab;
 
 @RestController
 public class DiscountController {
@@ -22,7 +22,7 @@ public class DiscountController {
 	DiscountSlabRepository discountSlabRepository;
 
 	@GetMapping("/discounts")
-	public List<DiscountSlabs> getAllDiscounts() {
+	public List<DiscountSlab> getAllDiscounts() {
 		return discountSlabRepository.findAll();
 	}
 
@@ -32,7 +32,7 @@ public class DiscountController {
 	}
 
 	@PostMapping("/discounts")
-	public ResponseEntity<Object> createDiscount(@RequestBody DiscountSlabs discountSlabs) {
+	public ResponseEntity<Object> createDiscount(@RequestBody DiscountSlab discountSlabs) {
 		discountSlabRepository.save(discountSlabs);
 		return new ResponseEntity(HttpStatus.CREATED);
 	}

@@ -8,5 +8,5 @@ CREATE TABLE Discounts(
 
 INSERT INTO Discounts (from_value, to_value, discount_percentage) values 
 (0, 5000, 0),
-(5000, 10000, 10.0),
-(10000, null, 20.0);
+(5000, 10000, 5.0),
+(10000, null, 10.0);

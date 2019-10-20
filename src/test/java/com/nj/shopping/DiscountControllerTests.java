@@ -5,22 +5,17 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.math.BigDecimal;
 import java.net.URI;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.server.LocalServerPort;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.client.RestTemplate;
 
 import com.nj.shopping.Repository.DiscountSlabRepository;
-import com.nj.shopping.domain.DiscountSlabs;
+import com.nj.shopping.domain.DiscountSlab;
 
-@RunWith(SpringRunner.class)
 class DiscountControllerTests extends ShoppingcartApplicationTests{
 
 	@Autowired
@@ -36,7 +31,7 @@ class DiscountControllerTests extends ShoppingcartApplicationTests{
 		URI uri = new URI(baseUrl);
 		ResponseEntity<String> discounts = restTemplate.getForEntity(uri, String.class);
 		assertEquals(200, discounts.getStatusCodeValue());
-		assertEquals(true, discounts.getBody().contains("20.0"));
+		assertEquals(true, discounts.getBody().contains("10"));
 	}
 	
 	@Test
@@ -58,13 +53,13 @@ class DiscountControllerTests extends ShoppingcartApplicationTests{
 		RestTemplate restTemplate = new RestTemplate();
 		final String baseUrl  = "http://localhost:" + randomServerPort + "/discounts";
 		Map<String, String> params = new HashMap<String,String>();
-		DiscountSlabs discountSlab = DiscountSlabs.builder()
-													.fromValue(12000)
-													.toValue(15000)
+		DiscountSlab discountSlab = DiscountSlab.builder()
+													.fromValue(new BigDecimal("18000"))
+													.toValue(new BigDecimal("20000"))
 													.discountPercentage(new BigDecimal("25.0"))
 													.build();
 		int precount = repo.findAll().size();
-		restTemplate.postForObject(baseUrl, discountSlab, DiscountSlabs.class);
+		restTemplate.postForObject(baseUrl, discountSlab, DiscountSlab.class);
 		int postCount = repo.findAll().size();
 		assertEquals(precount + 1, postCount);
 	}

@@ -19,13 +19,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "Discounts")
-public class DiscountSlabs {
+public class DiscountSlab {
 	
 	@Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
-	Integer fromValue;
-	Integer toValue;
+	BigDecimal fromValue;
+	BigDecimal toValue;
 	BigDecimal discountPercentage;
 
 }
